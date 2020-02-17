@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <title>Morty</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/main.css" />
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Lora&display=swap');
+
+        h2 {
+          font-family: "lora", sans-serif;
+        }
+
+               .wrapper {
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        }      
+    </style>
+  </head>
+
+  <body>
+
+    <% @fixed_name = @name.to_s.gsub( /_/ , ' ') %>
+    <h2><%= @fixed_name %></h2>
+
+    <p>Age-adjusted death rates per 100,000 population:</p>
+
+      <ul>
+      <% list = @borough_name.neighborhoods.sort_by {|neighborhood| neighborhood.rate}.reverse %>
+      <% list.each do |neighborhood| %>
+        <li><%= neighborhood.title %> — <%= neighborhood.rate %></li>
+        <% end %>
+      </ul><BR>
+
+  <a href="/">Back</a><BR>
+  <a href="/neighborhoods">Full list</a>
+  
+  </body>
+</html>
+
+
