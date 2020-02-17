@@ -28,7 +28,7 @@
 
   <% list = @neighborhoods.sort_by {|neighborhood| neighborhood.rate}.reverse %>
 	<% list.each do |neighborhood| %>
-	    <li><%= neighborhood.title %> — <%= neighborhood.rate %>, <%= neighborhood.borough.name %></li>
+	    <li><%= neighborhood.title %> — <%= neighborhood.rate %>, <%= neighborhood.borough.name.to_s.gsub( /_/ , ' ') %></li>
 	    <% end %><BR>
 
 	<a href="/">Back</a>
