@@ -1,82 +1,77 @@
-<div class="container">
+<html>
 
-  <header>
+  <head>
     <style>
-    @import url('https://fonts.googleapis.com/css?family=Lora&display=swap');
+        @import url('https://fonts.googleapis.com/css?family=Lora&display=swap');
 
-    body {
-      font-family: "lora", sans-serif;
-      background-color: white;
-    }
+        body {
+          font-family: "lora", sans-serif;
+          background-color: white;
+        }
 
-    .wrapper {
-      -moz-box-shadow: none;
-      -webkit-box-shadow: none;
-      box-shadow: none;
-     }
+        .wrapper {
+          -moz-box-shadow: none;
+          -webkit-box-shadow: none;
+          box-shadow: none;
+         }
 
-    .page-info {
-      text-align: center;
-    }
+        .page-info {
+          text-align: center;
+        }
 
-    .content {
-      width: 100%;
-    }
+        .content {
+          width: 100%;
+        }
 
+        .flex-container {
+          display: flex;
+          background-color: silver;
+          clear: both;
+        }
 
-    .flex-container {
-      display: flex;
-      background-color: yellow;
-      clear: both;
-    }
+        .flex-container > div {
+          background-color: white;
+          margin: 10px;
+          padding: 20px;
+        }
 
-    .flex-container > div {
-      background-color: white;
-      margin: 10px;
-      padding: 20px;
-    }
+        h2 {
+        border-bottom: none;
+        line-height: 12px;
+        }
 
-    .nav {
-      width: 30%;
-    }
+        /* unvisited link */
+        a:link {
+          color: black;
+          font-weight: bold;
+          text-decoration: none;
+        }
 
-    h2 {
-    border-bottom: none;
-    line-height: 12px;
-    }
+        /* visited link */
+        a:visited {
+          color: black;
+          font-weight: bold;
+          text-decoration: none;
+        }
 
-    /* unvisited link */
-    a:link {
-      color: black;
-      font-weight: bold;
-      text-decoration: none;
-    }
+        /* mouse over link */
+        a:hover {
+          color: gray;
+          font-weight: bold;
+          text-decoration: none;
+        }
 
-    /* visited link */
-    a:visited {
-      color: black;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    /* mouse over link */
-    a:hover {
-      color: gray;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    /* selected link */
-    a:active {
-      color: black;
-      font-weight: bold;
-      text-decoration: none;
-    }
+        /* selected link */
+        a:active {
+          color: black;
+          font-weight: bold;
+          text-decoration: none;
+        }
 
     </style>
-  </header>
+  </head>
 
-  <div class="col-md-8 col-md-offset-2">
+  <body>
 
     <div class="page-info">
       <h1>What's the death rate for your New York neighborhood?</h1>
@@ -91,7 +86,7 @@
     </div>
 
     <div class="flex-container">
-      <div class="nav">
+      <div id="nav">
         <ul>
            <li><h2><a href="/Manhattan">Manhattan</a></h2></li>
            <li><h2><a href="/Bronx">Bronx</a></h2></li>
@@ -102,10 +97,40 @@
         </ul><BR>
       </div>
 
-      <div class="chart"><h2>Chart</h2></div>
+      <div id="container"><h2>Borough Averages</h2></div>
     </div>
 
+  </body>
 
-  </div>
-</div>
+  <script src="d3.js"></script>
+  <script>
 
+      let container = d3.select("#container")
+      d3.csv("data.csv").then(showData)
+
+      function write(text) {
+          container.append("div").text(text)
+      }
+
+      function showData(clients) {
+          let max = d3.max(clients, 
+              d => d.Rate)
+          let scale = d3.scaleLinear()
+              .range([0, 500])
+              .domain([0, max])
+
+          let join = container.selectAll("div")
+              .data(clients)
+
+          join.enter()
+              .append("div")
+              .text(d => d.Name + ": "  
+                  + d.Rate)
+              .style("background-color", "gray")
+              .style("margin", "5px")
+              .style("color", "white")
+              .style("width", d => scale(d.Rate))
+      }
+  </script>
+
+</html>
