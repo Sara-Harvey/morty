@@ -6,15 +6,12 @@ gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
 gem 'rake'
 gem 'require_all'
 
-#gem 'sqlite3', '~> 1.3.6'
-#gem "pg"    # for Postgres
+group :development do
+gem 'sqlite3', '~> 1.3.6'
+end
 
 group :production do 
 gem 'pg', '~> 0.18.4'
-end
-
-group :development do
-gem 'sqlite3', '~> 1.3.6'
 end
 
 gem 'thin'
