@@ -7,6 +7,8 @@
         body {
           font-family: "lora", sans-serif;
           background-color: white;
+          line-height: 17px;
+          margin: 5%;
         }
 
         .wrapper {
@@ -27,6 +29,7 @@
           display: flex;
           background-color: silver;
           clear: both;
+          width: 100%;
         }
 
         .flex-container > div {
@@ -35,9 +38,19 @@
           padding: 20px;
         }
 
+        #container {
+          width: 65%;
+        }
+
         h2 {
         border-bottom: none;
-        line-height: 12px;
+        line-height: 10px;
+        }
+
+        ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
         }
 
         /* unvisited link */
@@ -80,13 +93,12 @@
     </div>
     
     <div class="content">
-          <p>A neighborhood's death rate can say a lot about its quality of life — crime, poverty, employment rate, accessiblity to transportation, parks, healthy food and health care. What can be done to improve parity?</p>
-
-          <p>Click for rates by neighborhood:</p><BR>
+          <p>A neighborhood's death rate can say a lot about its quality of life — crime, poverty, employment rate, accessiblity to transportation, parks, healthy food and health care. What can be done to improve parity?</p><BR>
     </div>
 
     <div class="flex-container">
       <div id="nav">
+        <p>Click for neighborhoods:</p>
         <ul>
            <li><h2><a href="/Manhattan">Manhattan</a></h2></li>
            <li><h2><a href="/Bronx">Bronx</a></h2></li>
@@ -95,42 +107,43 @@
            <li><h2><a href="/Staten_Island">Staten Island</a></h2></li>
            <li><h2><a href="/neighborhoods">All Neighborhoods</a></h2></li>
         </ul>
-      </div><BR>
+      </div>
 
       <div id="container"><h2>Borough Averages</h2></div>
     </div>
 
   </body>
 
-  <script src="d3.js"></script>
+  <script src="javascripts/d3.js"></script>
+
   <script>
+    let container = d3.select("#container")
+    d3.csv("data.csv").then(showData)
 
-      let container = d3.select("#container")
-      d3.csv("data.csv").then(showData)
+    function write(text) {
+        container.append("div").text(text)
+        }
 
-      function write(text) {
-          container.append("div").text(text)
-      }
+    function showData(clients) {
+        let max = d3.max(clients, 
+            d => d.Rate)
+        let scale = d3.scaleLinear()
+            .range([0, 616])
+            .domain([0, max])
 
-      function showData(clients) {
-          let max = d3.max(clients, 
-              d => d.Rate)
-          let scale = d3.scaleLinear()
-              .range([0, 500])
-              .domain([0, max])
+        let join = container.selectAll("div")
+            .data(clients)
 
-          let join = container.selectAll("div")
-              .data(clients)
-
-          join.enter()
-              .append("div")
-              .text(d => d.Name + ": "  
-                  + d.Rate)
-              .style("background-color", "gray")
-              .style("margin", "5px")
-              .style("color", "white")
-              .style("width", d => scale(d.Rate))
-      }
-  </script>
+        join.enter()
+            .append("div")
+            .text(d => d.Name + ": " 
+                + scale(d.Rate))
+            .style("background-color", "gray")
+            .style("margin", "8px")
+            .style("padding", "5px")
+            .style("color", "white")
+            .style("width", d => scale(d.Rate))
+        }
+    </script>
 
 </html>
