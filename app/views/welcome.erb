@@ -1,127 +1,42 @@
-<html>
+  <div class="container">
 
-  <head>
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Lora&display=swap');
+  <h1 class="my-4">What's the death rate for your New York neighborhood?
+    <BR><small>Summary of Vital Statistics 2017 — City of New York</small>
+  </h1>
 
-        body {
-          font-family: "lora", sans-serif;
-          background-color: white;
-          line-height: 18px;
-          margin: 5%;
-        }
-
-        .wrapper {
-          -moz-box-shadow: none;
-          -webkit-box-shadow: none;
-          box-shadow: none;
-         }
-
-        .page-info {
-          text-align: center;
-        }
-
-        .content {
-          width: 100%;
-        }
-
-        .flex-container {
-          display: flex;
-          background-color: silver;
-          clear: both;
-          width: 100%;
-        }
-
-        .flex-container > div {
-          background-color: white;
-          margin: 10px;
-          padding: 20px;
-        }
-
-        #container {
-          width: 65%;
-        }
-
-        h2 {
-        border-bottom: none;
-        line-height: 10px;
-        }
-
-        ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        }
-
-        /* unvisited link */
-        a:link {
-          color: black;
-          font-weight: bold;
-          text-decoration: none;
-        }
-
-        /* visited link */
-        a:visited {
-          color: black;
-          font-weight: bold;
-          text-decoration: none;
-        }
-
-        /* mouse over link */
-        a:hover {
-          color: gray;
-          font-weight: bold;
-          text-decoration: none;
-        }
-
-        /* selected link */
-        a:active {
-          color: black;
-          font-weight: bold;
-          text-decoration: none;
-        }
-
-    </style>
-  </head>
-
-  <body>
-
-    <div class="page-info">
-      <h1>What's the death rate for your New York neighborhood?</h1>
-      <h3>Summary of Vital Statistics 2017 — City of New York</h3>
-      <h3><a href="https://www1.nyc.gov/assets/doh/downloads/pdf/vs/2017sum.pdf">Death rates for New York City 2017</a> by neighborhood (Community District)</h3><br>
-    </div>
-    
-    <div class="content">
-          <p>A neighborhood's death rate can say a lot about its quality of life — crime, poverty, employment rate, accessiblity to transportation, parks, healthy food and health care. What can be done to improve parity?</p><BR>
+    <div class="row">
+      <div class="col-md-8" id="chartArea"><h3>Borough Averages</h3></div>
     </div>
 
-    <div class="flex-container">
-      <div id="nav">
-        <p>Click for neighborhoods:</p>
+  <div class="col-md-4">
+        
+        <h3 class="my-3"><a href="https://www1.nyc.gov/assets/doh/downloads/pdf/vs/2017sum.pdf">Death rates for New York City 2017 by neighborhood (Community District)</h3><br>
+
+        <p>A neighborhood's death rate can say a lot about its quality of life — crime, poverty, employment rate, accessiblity to transportation, parks, healthy food and health care. What can be done to improve parity?</p>
+
+        <h3 class="my-3">Click for neighborhoods:</h3>
+        
         <ul>
-           <li><h2><a href="/Manhattan">Manhattan</a></h2></li>
-           <li><h2><a href="/Bronx">Bronx</a></h2></li>
-           <li><h2><a href="/Brooklyn">Brooklyn</a></h2></li>
-           <li><h2><a href="/Queens">Queens</a></h2></li>
-           <li><h2><a href="/Staten_Island">Staten Island</a></h2></li>
-           <li><h2><a href="/neighborhoods">All Neighborhoods</a></h2></li>
+          <li><p><a href="/Manhattan">Manhattan</a></p></li>
+          <li><p><a href="/Bronx">Bronx</a></p></li>
+          <li><p><a href="/Brooklyn">Brooklyn</a></p></li>
+          <li><p><a href="/Queens">Queens</a></p></li>
+          <li><p><a href="/Staten_Island">Staten Island</a></p></li>
+          <li><p><a href="/neighborhoods">All Neighborhoods</a></p></li>
         </ul>
       </div>
 
-      <div id="container"><h2>Borough Averages</h2></div>
-    </div>
+  </div>
 
-  </body>
+<script src="/js/chart.js"></script>
 
-  <script src="javascripts/d3.js"></script>
 
-  <script>
-    let container = d3.select("#container")
+<script>
+    let chartArea = d3.select("#chartArea")
     d3.csv("data.csv").then(showData)
-
+    
     function write(text) {
-        container.append("div").text(text)
+        chartArea.append("div").text(text)
         }
 
     function showData(clients) {
@@ -131,7 +46,7 @@
             .range([0, 616])
             .domain([0, max])
 
-        let join = container.selectAll("div")
+        let join = chartArea.selectAll("div")
             .data(clients)
 
         join.enter()
@@ -145,5 +60,3 @@
             .style("width", d => scale(d.Rate))
         }
     </script>
-
-</html>

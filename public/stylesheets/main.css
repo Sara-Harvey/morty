@@ -1,0 +1,51 @@
+
+/* @import url('https://fonts.googleapis.com/css?family=Lora&display=swap'); */
+@import "bootstrap";
+
+* 	{
+	/*font-family: "Lora", sans-serif; */
+	font-family: sans-serif;
+	}
+
+
+body {
+	background-color: white;
+  	}
+
+.page-info {
+    text-align: center;
+  	}
+
+ul {
+    list-style-type: none;
+    /* margin: 0; */
+    /* padding: 0; */
+    }
+
+    /* unvisited link */
+a:link {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    }
+
+/* visited link */
+a:visited {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    }
+
+        /* mouse over link */
+a:hover {
+    color: gray;
+    font-weight: bold;
+    text-decoration: none;
+    }
+
+        /* selected link */
+a:active {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    }
