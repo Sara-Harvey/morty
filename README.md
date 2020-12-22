@@ -1,4 +1,4 @@
-<H1>A Ruby/Sinatra and D3.js app</h1>
+<H1>A Ruby/Sinatra and D3.js app ...</h1>
 <H3>that could make a good visual companion for interactive journalism</h3>
 
 Morty is a Sinatra app based on the 2017 Mortality Report, a Summary of Vital Statistics for the City of New York. The app scrapes the report to show death rates for individual neighborhoods, ranked. Development still in progress.
